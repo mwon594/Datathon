@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "NZ Energy Annual Report Extraction",
+  "type": "object",
+  "additionalProperties": false,
+
+  "properties": {
+    "company_name": {
+      "type": ["string", "null"]
+    },
+
+    "financial_year": {
+      "type": ["integer", "null"]
+    },
+
+    "revenue_nzd_m": {
+      "type": ["number", "null"]
+    },
+
+    "ebitdaf_nzd_m": {
+      "type": ["number", "null"]
+    },
+
+    "net_profit_nzd_m": {
+      "type": ["number", "null"]
+    },
+
+    "operating_cash_flow_nzd_m": {
+      "type": ["number", "null"]
+    },
+
+    "capital_expenditure_nzd_m": {
+      "type": ["number", "null"]
+    },
+
+    "net_debt_nzd_m": {
+      "type": ["number", "null"]
+    },
+
+    "total_generation_gwh": {
+      "type": ["number", "null"]
+    },
+
+    "renewable_generation_pct": {
+      "type": ["number", "null"]
+    },
+
+    "installed_capacity_mw": {
+      "type": ["number", "null"]
+    },
+
+    "total_customers": {
+      "type": ["integer", "null"]
+    },
+
+    "development_pipeline_mw": {
+      "type": ["number", "null"]
+    },
+
+    "employees": {
+      "type": ["integer", "null"]
+    },
+
+    "scope_1_emissions_tco2e": {
+      "type": ["number", "null"]
+    },
+
+    "scope_2_emissions_tco2e": {
+      "type": ["number", "null"]
+    },
+
+    "strategic_priorities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+
+    "key_risks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+
+    "key_opportunities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+
+    "major_projects": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}
