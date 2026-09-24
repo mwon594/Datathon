@@ -9,6 +9,7 @@ from pathlib import Path
 
 import boto3
 from dotenv import load_dotenv
+from jsonschema import validate
 
 load_dotenv()
 
@@ -32,15 +33,15 @@ def get_schema():
     return schema
 
 
-def aws_call(schema, filepath):
+def aws_call(schema, filepath: Path | str):
     client = boto3.client("bedrock-runtime", region_name="us-east-1")
 
-    text = Path(filepath).read_text()
+    text = Path(filepath).read_text(encoding="utf-8")
 
     prompt = f"""You are extracting structured data from a New Zealand energy annual report. 
                 Use this JSON schema:{json.dumps(schema, indent=2)} that defines the keys. Use the text to find value.
                 Here is the unstructured annual report text {text}: Extract the values from the report according to the schema.
-                Return such that: each line is the value for each key.
+                Return valid json which matches the provided json schema.
             """
 
     response = client.converse(
@@ -51,19 +52,11 @@ def aws_call(schema, filepath):
     return response
 
 
-schema = get_schema()
-resp = aws_call(schema, "output.txt")
+def json_response(aws_response):
+    text: str = aws_response["output"]["message"]["content"][0]["text"]
+    return text.removeprefix("```json").removesuffix("```").strip()
 
 
-def json_to_file(resp):
-    text = resp["output"]["message"]["content"][0]["text"]
-
-    text = text.removeprefix("```json").removesuffix("```").strip()
-
-    key_values = json.loads(text)
-
-    with open("formatted.txt", "w", encoding="utf-8") as f:
-        f.writelines(f"{key}: {value}\n" for key, value in key_values.items())
-
-
-json_to_file(resp)
+def validate_json(schema, json_string: str):
+    json_data = json.loads(json_string)
+    validate(instance=json_data, schema=schema)

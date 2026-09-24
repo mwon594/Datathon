@@ -1,0 +1,38 @@
+name: AI Processed Data Pipeline
+
+on:
+  push:
+    branches: [ main ]
+    paths: [ 'src/ai_processed_data_pipeline/**' ]
+
+  workflow_run:
+    workflows: ["Unstructured Data Pipeline"]
+    types: [ completed ]
+
+jobs:
+  snowflake-data-pipeline:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+
+      - name: Clear existing structured data on snowflake
+        env:
+          SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
+          PASSWORD: ${{ secrets.PASSWORD }}
+          SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+
+        run: uv run -m src.clear_structured_data
+
+      - name: Send AI processed data to snowflake
+        env:
+          SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
+          PASSWORD: ${{ secrets.PASSWORD }}
+          SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+          AWS_BEARER_TOKEN_BEDROCK: ${{ secrets.AWS_BEARER_TOKEN_BEDROCK }}
+
+        run: uv run -m src.ai_processing_pipeline.main
