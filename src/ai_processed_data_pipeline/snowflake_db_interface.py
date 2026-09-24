@@ -62,9 +62,8 @@ def send_snowflake(json: dict):
                 json.get("scope_2_emissions_tco2e"),
             ),
         )
-        assert cur is not None
-        id = cur.fetchone()[0]
 
+        id = cur.fetchone()[0]
         for priority in json.get("strategic_priorities", []):
             cur.execute(
                 """
