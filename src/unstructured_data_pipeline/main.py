@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from dotenv import load_dotenv
 
 from src.unstructured_data_pipeline.data_scraping import get_report_link, web_scrape
@@ -6,6 +8,7 @@ from src.unstructured_data_pipeline.snowflake_file_interface import upload_file
 
 def main(tickers: list[str], years: list[int], save_folder: str):
     successful_scrapes: list[tuple[str, int]] = []
+    Path("unstructured_data").mkdir(parents=True, exist_ok=True)
     for ticker in tickers:
         for year in years:
             url = get_report_link(ticker, year)
