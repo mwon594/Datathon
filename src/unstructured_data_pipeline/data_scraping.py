@@ -1,6 +1,6 @@
 """Intended to
 1) request to web api to get STRUCTURED text
-2) pdf -> text file (key:value pair) - potentially as JSON.
+2) html -> text file
 3) store each text file.
 """
 
