@@ -41,7 +41,7 @@ def webscrape(url: str):
     return memo.get_text(strip = True)
 
 
-def write_to_file(stringpath: str, content : []):
+def write_to_file(stringpath: str, content : list):
     try:
         with open("output.txt", "w") as file:
             for line in content:

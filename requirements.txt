@@ -2,3 +2,4 @@ requests
 BeautifulSoup
 urljoin
 selenium
+snowflake-connector-python
