@@ -15,6 +15,9 @@ options = Options()
 options.add_argument("--headless=new")
 options.add_argument("--no-sandbox")
 options.add_argument("--disable-dev-shm-usage")
+options.add_argument(
+    "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+)
 
 driver = webdriver.Chrome(options=options)
 
@@ -23,17 +26,19 @@ def get_report_link(ticker: str, year: int):
     url = f"https://www.nzx.com/companies/{ticker}/announcements?code={ticker}&year={year}"
     driver.get(url)
     time.sleep(4)
-    soup = BeautifulSoup(driver.page_source, "html.parser")
-    links = soup.find_all("a", href=True)
-    for link in links:
-        report_code = link.find_next_sibling("span")
-        if report_code is None:
-            continue
+    for _ in range(20):
+        time.sleep(1)
+        soup = BeautifulSoup(driver.page_source, "html.parser")
+        links = soup.find_all("a", href=True)
+        for link in links:
+            report_code = link.find_next_sibling("span")
+            if report_code is None:
+                continue
 
-        if report_code.get_text(strip=True) in ["ANNREP", "FLLYR"]:
-            relative_path = link.get("href")
-            assert isinstance(relative_path, str)
-            return "https://www.nzx.com" + relative_path
+            if report_code.get_text(strip=True) in ["ANNREP", "FLLYR"]:
+                relative_path = link.get("href")
+                assert isinstance(relative_path, str)
+                return "https://www.nzx.com" + relative_path
 
     return None
 

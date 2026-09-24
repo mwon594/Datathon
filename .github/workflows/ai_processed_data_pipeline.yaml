@@ -35,4 +35,4 @@ jobs:
           SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
           AWS_BEARER_TOKEN_BEDROCK: ${{ secrets.AWS_BEARER_TOKEN_BEDROCK }}
 
-        run: uv run -m src.ai_processing_pipeline.main
+        run: uv run -m src.ai_processed_data_pipeline.main
