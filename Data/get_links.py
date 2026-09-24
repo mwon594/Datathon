@@ -4,29 +4,31 @@
 3) store each text file.
 """
 
-import requests
+import time
+
 from bs4 import BeautifulSoup
+from selenium import webdriver
+
+driver = webdriver.Chrome()
 
 
-def get_pdf_links(ticker: str, year: int):
+def get_pdf_link(ticker: str, year: int):
     url = f"https://www.nzx.com/companies/{ticker}/announcements?code={ticker}&year={year}"
-    response = requests.get(url)
-    soup = BeautifulSoup(response.text, "html.parser")
+    driver.get(url)
+    time.sleep(2)
+    soup = BeautifulSoup(driver.page_source, "html.parser")
     links = soup.find_all("a", href=True)
-    print(len(links))
-    counter = 0
     for link in links:
-        print(link.get("href"))
         memo = link.find_next_sibling("span")
         if memo is None:
             continue
 
-        counter += 1
         if memo.get_text(strip=True) in ["ANNREP", "FLLYR"]:
-            return link.get("href")
+            relative_path = link.get("href")
+            assert isinstance(relative_path, str)
+            return "https://www.nzx.com" + relative_path
 
-    print(counter)
-    return "Fail"
+    return None
 
 
-print(get_pdf_links("AIA", 2024))
+print(get_pdf_link("AIA", 2024))
