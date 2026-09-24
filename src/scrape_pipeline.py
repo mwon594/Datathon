@@ -1,6 +1,6 @@
 from dotenv import load_dotenv
 
-from fileinterface import upload_file
+from src.fileinterface import upload_file
 from src.get_reports import get_report_link, web_scrape
 
 
