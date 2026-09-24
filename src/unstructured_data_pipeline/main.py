@@ -1,10 +1,10 @@
 from dotenv import load_dotenv
 
-from src.fileinterface import upload_file
-from src.get_reports import get_report_link, web_scrape
+from src.unstructured_data_pipeline.data_scraping import get_report_link, web_scrape
+from src.unstructured_data_pipeline.snowflake_file_interface import upload_file
 
 
-def main(tickers: list[str], years: list[int]):
+def main(tickers: list[str], years: list[int], save_folder: str):
     successful_scrapes: list[tuple[str, int]] = []
     for ticker in tickers:
         for year in years:
@@ -22,7 +22,7 @@ def main(tickers: list[str], years: list[int]):
             print(f"Report for {ticker} in {year} saved to {file_path}.")
 
     for ticker, year in successful_scrapes:
-        file_path = f"unstructured_data/{ticker}_{year}.txt"
+        file_path = save_folder + f"/{ticker}_{year}.txt"
         upload_file(file_path)
 
 
@@ -30,4 +30,4 @@ if __name__ == "__main__":
     load_dotenv()
     tickers = ["FPH", "MEL", "IFT", "AIA", "FCG", "MCY", "CEN", "MFT", "ATM", "POT"]
     years = [2026, 2025, 2024, 2023, 2022, 2021, 2020]
-    main(tickers, years)
+    main(tickers, years, "unstructured_data")
