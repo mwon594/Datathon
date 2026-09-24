@@ -15,7 +15,7 @@ def main(tickers: list[str], years: list[int]):
 
             content = web_scrape(url)
             file_path = f"unstructured_data/{ticker}_{year}.txt"
-            with open(file_path, "w") as file:
+            with open(file_path, "w", encoding="utf-8") as file:
                 file.write(content)
 
             successful_scrapes.append((ticker, year))
