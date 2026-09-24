@@ -1,0 +1,666 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "NZ Energy Annual Report Extraction Schema",
+  "description": "Structured schema for extracting comparable information from New Zealand electricity company annual and integrated reports.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "company": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ticker": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "financial_year": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "report_type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "report_date": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "currency": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "default": "NZD"
+        }
+      }
+    },
+    "financial_performance": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "revenue_nzd_m": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "ebitdaf_nzd_m": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "normalised_ebitdaf_nzd_m": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "net_profit_after_tax_nzd_m": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "underlying_net_profit_nzd_m": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "operating_cash_flow_nzd_m": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "capital_expenditure": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "total_capex_nzd_m": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "growth_capex_nzd_m": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "maintenance_capex_nzd_m": {
+              "type": [
+                "number",
+                "null"
+              ]
+            }
+          }
+        },
+        "net_debt_nzd_m": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "net_debt_to_ebitdaf": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "earnings_per_share_cents": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "dividend_per_share_cents": {
+          "type": [
+            "number",
+            "null"
+          ]
+        }
+      }
+    },
+    "generation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "total_generation_gwh": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "renewable_generation_pct": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 100
+        },
+        "generation_by_type_gwh": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "hydro": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "geothermal": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "wind": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "solar": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "thermal": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "other": {
+              "type": [
+                "number",
+                "null"
+              ]
+            }
+          }
+        },
+        "installed_capacity_mw": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "total": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "hydro": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "geothermal": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "wind": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "solar": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "thermal": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "battery": {
+              "type": [
+                "number",
+                "null"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "customers": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "total_customers": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "total_connections": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "electricity_connections": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "gas_connections": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "other_connections": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "customer_growth_pct": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "net_promoter_score": {
+          "type": [
+            "number",
+            "null"
+          ]
+        }
+      }
+    },
+    "development_pipeline": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "total_pipeline_mw": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "total_expected_generation_gwh": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "battery_pipeline_mw": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "projects": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "project_name": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "technology": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "enum": [
+                  "hydro",
+                  "geothermal",
+                  "wind",
+                  "solar",
+                  "thermal",
+                  "battery",
+                  "other",
+                  null
+                ]
+              },
+              "location": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "status": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "capacity_mw": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "storage_mwh": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "expected_generation_gwh_pa": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "estimated_cost_nzd_m": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "ownership_pct": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "minimum": 0,
+                "maximum": 100
+              },
+              "expected_fid": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "expected_completion": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "strategy": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "strategy_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "strategic_pillars": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "next_year_guidance": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "ebitdaf_low_nzd_m": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "ebitdaf_high_nzd_m": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "capex_low_nzd_m": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "capex_high_nzd_m": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "dividend_cents": {
+              "type": [
+                "number",
+                "null"
+              ]
+            }
+          }
+        },
+        "long_term_targets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "target": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "target_year": {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              },
+              "target_value": {
+                "type": [
+                  "number",
+                  "string",
+                  "null"
+                ]
+              },
+              "unit": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "environmental": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "scope_1_emissions_tco2e": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "scope_2_emissions_tco2e": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "total_emissions_tco2e": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "net_zero_target_year": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "renewable_generation_target_pct": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 100
+        }
+      }
+    },
+    "people_and_social": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "employees": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "safety_metric": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "value": {
+              "type": [
+                "number",
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "community_investment_nzd_m": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "gender_pay_equity_pct": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 100
+        }
+      }
+    },
+    "risks_and_opportunities": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "key_risks": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "key_opportunities": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "earnings_drivers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "hydrology_risk": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "fuel_supply_risk": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "regulatory_risk": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "project_execution_risk": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "source_evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "field": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "page": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "source_text": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "confidence": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "minimum": 0,
+            "maximum": 1
+          }
+        }
+      }
+    }
+  }
+}
