@@ -21,7 +21,7 @@ jobs:
           PASSWORD: ${{ secrets.PASSWORD }}
           SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
 
-        run: uv run -m src.clear_unstructured_data.py
+        run: uv run -m src.clear_unstructured_data
 
       - name: Send unstructured data to snowflake
         env:
