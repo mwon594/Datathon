@@ -1,5 +1,3 @@
-"""Upload files to snowflake"""
-
 import os
 from pathlib import Path
 
