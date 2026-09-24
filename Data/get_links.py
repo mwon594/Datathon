@@ -6,16 +6,19 @@
 
 import time
 
+
 from bs4 import BeautifulSoup
 from selenium import webdriver
+import requests
+
+
 
 driver = webdriver.Chrome()
-
 
 def get_pdf_link(ticker: str, year: int):
     url = f"https://www.nzx.com/companies/{ticker}/announcements?code={ticker}&year={year}"
     driver.get(url)
-    time.sleep(2)
+    time.sleep(4)
     soup = BeautifulSoup(driver.page_source, "html.parser")
     links = soup.find_all("a", href=True)
     for link in links:
@@ -30,5 +33,32 @@ def get_pdf_link(ticker: str, year: int):
 
     return None
 
+def webscrape(url: str):
+    response = requests.get(url)
+    soup = BeautifulSoup(response.text, "html.parser")
+    memo = soup.find('p', class_ = 'whitespace-pre-line')
 
-print(get_pdf_link("AIA", 2024))
+    return memo.get_text(strip = True)
+
+
+def write_to_file(stringpath: str, content : []):
+    try:
+        with open("output.txt", "w") as file:
+            for line in content:
+                file.write(line + "\n")
+
+        file.close()
+        return "success"
+    except FileNotFoundError:
+        return "fail"
+
+
+
+
+url = get_pdf_link("AIA", 2024)
+
+content = webscrape(url).split("\n")
+
+write_to_file("test", content)
+
+
